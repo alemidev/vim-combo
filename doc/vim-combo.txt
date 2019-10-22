@@ -9,7 +9,7 @@ _________\//\\\\\____\/\\\_\/\\\__\/\\\__\/\\\_______________\//\\\________\//\\
 ___________\//\\\_____\/\\\_\/\\\__\/\\\__\/\\\________________\///\\\\\\\\__\///\\\\\/___\/\\\__\/\\\__\/\\\_\/\\\\\\\\\___\///\\\\\/___ 
 _____________\///______\///__\///___\///___\///___________________\////////_____\/////_____\///___\///___\///__\/////////______\/////_____
 ===========================================================================================================================================
-Each keystroke in insert mode increases your combo, but not typing for 1 second resets it.
+Each keystroke in insert mode increases your combo, but not typing for 0.5 seconds resets it.
 Hacks are not patched around : you can keep a key pressed to increase your combo, and CTRL+SHIFT+V will all be counted as a combo.
 
 Best score is displayed next to the current combo in square brackets. When a new high score is achieved, it is saved inside .vim as .combo.
