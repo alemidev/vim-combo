@@ -1,0 +1,15 @@
+      .__                                      ___.           
+___  _|__| _____             ____  ____   _____\_ |__   ____  
+\  \/ /  |/     \   ______ _/ ___\/  _ \ /     \| __ \ /  _ \ 
+ \   /|  |  Y Y  \ /_____/ \  \__(  <_> )  Y Y  \ \_\ (  <_> )
+  \_/ |__|__|_|  /          \___  >____/|__|_|  /___  /\____/ 
+               \/               \/            \/    \/        
+
+Each keystroke in insert mode increases your combo, but not typing for 1 second resets it.
+Hacks are not patched around : you can keep a key pressed to increase your combo, and CTRL+SHIFT+V will all be counted as a combo.
+
+Best score is displayed next to the current combo in square brackets. When a new high score is achieved, it is saved inside .vim as .combo.
+If you get errors at launch, check that .combo exists and has just a number inside (should be 0, or last best combo).
+
+The plugin is still under construction. Right now, you will need to edit the path to the .combo file and choose where to display the combo information.
+By default, the section B of airline-vim is overwritten to display current combo. A random Runic character has been chosen to indicate the combo field.
