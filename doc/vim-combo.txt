@@ -21,6 +21,10 @@ When a new high score is achieved, it is saved inside .vim as .combo.
 If you get errors at launch, check that .combo exists and has just a 
 number inside (should be 0, or last best combo).
 
+By default, combo is not tracked in .txt, .tex, .vim files and in files with
+no extension. This can be removed by deleting (or commenting) the first lines 
+in the script.
+
 The plugin is not in its final version. Right now, you will need to edit 
 the path to the .combo file and choose where to display the combo information.
 By default, the section B of airline-vim is overwritten to display current 
