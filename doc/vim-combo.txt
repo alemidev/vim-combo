@@ -9,13 +9,25 @@ _________\//\\\\\____\/\\\_\/\\\__\/\\\__\/\\\_______________\//\\\________\//\\
 ___________\//\\\_____\/\\\_\/\\\__\/\\\__\/\\\________________\///\\\\\\\\__\///\\\\\/___\/\\\__\/\\\__\/\\\_\/\\\\\\\\\___\///\\\\\/___ 
 _____________\///______\///__\///___\///___\///___________________\////////_____\/////_____\///___\///___\///__\/////////______\/////_____
 ===========================================================================================================================================
-Each keystroke in insert mode increases your combo, but not typing for 0.5 seconds resets it.
-Hacks are not patched around : you can keep a key pressed to increase your combo, and CTRL+SHIFT+V will all be counted as a combo.
+Each keystroke in insert mode increases your combo, 
+but not typing for 1 second resets it.
+Hacks are not patched around : you can keep a key pressed to increase your 
+combo, and CTRL+SHIFT+V will all be counted as a combo.
+( since afaik vim does not allow to remap all letters to an action combo
+counter is increased with every cursor movement )
 
-Best score is displayed next to the current combo in square brackets. When a new high score is achieved, it is saved inside .vim as .combo.
-If you get errors at launch, check that .combo exists and has just a number inside (should be 0, or last best combo).
+Best score is displayed next to the current combo in square brackets. 
+When a new high score is achieved, it is saved inside .vim as .combo.
+If you get errors at launch, check that .combo exists and has just a 
+number inside (should be 0, or last best combo).
 
-The plugin is still under construction. Right now, you will need to edit the path to the .combo file and choose where to display the combo information.
-By default, the section B of airline-vim is overwritten to display current combo. A random Runic character has been chosen to indicate the combo field.
+The plugin is not in its final version. Right now, you will need to edit 
+the path to the .combo file and choose where to display the combo information.
+By default, the section B of airline-vim is overwritten to display current 
+combo. A random Runic character has been chosen to indicate the combo field.
+
+If you think you can help this little script, absolutely do contact me!
+There is a github (https://github.com/alemigliardi/vim-combo). I still know
+very little of vim-script!
 
 vim:tw=78:ts=8:ft=help:norl:
