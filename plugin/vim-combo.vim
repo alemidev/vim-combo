@@ -28,15 +28,5 @@ else
 		endif
 		let g:last_combo = reltime()
 	endfunction
-	autocmd CursorMovedI * call UpdateCombo()	" Every time the cursor moves, call combo function
-	function! ResetCombo()
-		let g:combo_counter = 0
-		call writefile(0, "$HOME/.vim/.combo")
-	endfunction
-	
-	" NOT NECESSARY! Only enable if you find yourself cheating by staying in insert mode!
-	" inoremap <Left> <C-o>:let g:combo_counter=0<CR><Left>
-	" inoremap <Right> <C-o>:let g:combo_counter=0<CR><Right>
-	" inoremap <Up> <C-o>:let g:combo_counter=0<CR><Up>
-	" inoremap <Down> <C-o>:let g:combo_counter=0<CR><Down>
+	autocmd TextChangedI * call UpdateCombo()	" Every time text in the file changes, call combo function
 endif
