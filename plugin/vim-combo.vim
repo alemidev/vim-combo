@@ -46,3 +46,6 @@ endfunction
 
 autocmd TextChangedI * call UpdateCombo()	" Every time the cursor moves, call combo function
 autocmd InsertLeave * call SaveCombo()
+
+" Options for Backspace Cheaters
+" inoremap <BS> <C-o>:let g:combo_counter-=1<CR><BS>
