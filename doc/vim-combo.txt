@@ -14,18 +14,17 @@ but not typing for 1 second resets it.
 The script is triggered whenever a text edit is detected in insert mode.
 
 Progress is tracked per filetype (and stored in ~/.vim/.combo/).
-Best score is displayed next to the current combo, and in square brackets
-the best score across all filetypes is shown. 
-When a new high score is achieved, it is saved inside .vim as .combo.
-If you get errors at launch, check that .combo exists and has just a 
-number inside (should be 0, or last best combo).
+By default inside the block B of airline vim a string x\|y\|z is
+displayed, where
+	x is the current score
+	y is the best score for this filetype
+	z is the best score across all filetypes
+When a new high score is achieved, it is automatically saved.
+Each 10 points increases a combo bar next to the scores
 
-By default, combo is not tracked in .txt, .tex, .vim files and in files with
-no extension. This can be removed by deleting (or commenting) the first lines 
-in the script.
-
-By default, the section B of airline-vim is overwritten to display current 
-combo. A random Runic character has been chosen to indicate the combo field.
+If you get errors at launch, check that .combo folder exists. A none.cmb
+file should already be inside, create it if it is missing and place a 0
+inside.
 
 If you think you can help this little script, absolutely do contact me!
 There is a github (https://github.com/alemigliardi/vim-combo). I still know
