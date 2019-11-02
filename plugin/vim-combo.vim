@@ -24,17 +24,26 @@ else
 endif
 
 " Configure variables
-let g:combo_counter = 0							" The actual combo variable
+let g:combo_counter = 0		" The actual combo variable
 let g:timeout = 1
-let g:last_combo = reltime()						" Set current time as last combo time
-let g:airline_section_b = 'ᛥ %{g:combo_counter}|%{g:best_combo} [%{g:best_combo_all}]'	" I use airline vim and inserted the combo meter in it
+let g:emphasis = ''
+let g:mult = 10
+let g:last_combo = reltime()	" Set current time as last combo time
+let g:airline_section_b = 'ᛥ %{g:combo_counter}|%{g:best_combo}|%{g:best_combo_all} %{g:emphasis}'
 function! UpdateCombo()
-	if reltimefloat(reltime(g:last_combo)) > g:timeout		" Timeout is 1 second
+	if reltimefloat(reltime(g:last_combo)) > g:timeout
 		call SaveCombo()
 		let g:combo_counter = 1
 	else
 		let g:combo_counter +=1 
 	endif
+	let g:emphasis = ''
+	let ceil = g:combo_counter / g:mult
+	let i = 0
+	while i < ceil
+		let g:emphasis = g:emphasis . 'ᛞ'
+		let i+=1
+	endwhile
 	let g:last_combo = reltime()
 endfunction
 function! SaveCombo()
