@@ -54,7 +54,7 @@ else
 		let ceil = g:combo_counter / g:mult
 		let i = 0
 		while i < ceil
-			let g:emphasis = g:emphasis . 'ᛞ'
+			let g:emphasis = g:emphasis . '*'
 			let i+=1
 		endwhile
 		let g:last_combo = reltime()
