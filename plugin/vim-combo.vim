@@ -27,7 +27,7 @@ endfor
 if g:disable_combo
 	let g:airline_section_b = airline#section#create(['[%{g:best_combo_all}] - ᛥ'])
 else
-	" Find best score for current filetype
+	" Find best score for current filetype. If none exists, start tracking
 	if filereadable(g:combo_file)
 		let g:best_combo = readfile(g:combo_file)
 		let g:best_combo = g:best_combo[0]
@@ -40,14 +40,14 @@ else
 	" Configure variables
 	let g:combo_counter = 0		" The actual combo variable
 	let g:timeout = 1
+	let g:last_combo = reltime()	" Set current time as last combo time
 	hi User1 ctermfg=247 ctermbg=237
 	let g:status = '%1*[%{g:best_combo}] %{g:combo_counter} ᛥ%#airline_b#'
 	let g:status_max = '%1*[%{g:best_combo_all}|%{g:best_combo}] %{g:combo_counter} ᛥ%#airline_b#'
 	command ComboMaxOn let g:airline_section_b = airline#section#create([g:status_max]) | AirlineRefresh
 	command ComboMaxOff let g:airline_section_b = airline#section#create([g:status]) | AirlineRefresh
 	let g:airline_section_b = airline#section#create([g:status])
-
-	let g:last_combo = reltime()	" Set current time as last combo time
+	" Main check function, executed every time the file is changed
 	function! UpdateCombo()
 		if reltimefloat(reltime(g:last_combo)) > g:timeout
 			call SaveCombo()
@@ -58,6 +58,7 @@ else
 		call UpdateColor()
 		let g:last_combo = reltime()
 	endfunction
+	" Checks if a new combo has been achieved and saves it to file
 	function! SaveCombo()		" Should check inside because it can be called on InsertLeave
 		if g:combo_counter > g:best_combo
 			call writefile([g:combo_counter], g:combo_file)
@@ -65,7 +66,8 @@ else
 			let g:best_combo = g:combo_counter
 		endif
 	endfunction
-	function! UpdateColor()
+	" This is kind of sketchy but it works fast! Reloading is very slow
+	function! UpdateColor() 	" Hope User1 isn't used elsewhere?
 		if g:combo_counter == 1
 			hi User1 ctermfg=247 ctermbg=237
 		elseif g:combo_counter == 10
@@ -80,11 +82,19 @@ else
 			hi User1 ctermfg=1 ctermbg=237
 		endif
 	endfunction
-	function! Cheated()
-		call writefile([g:best_last_combo], g:combo_file)
-		let g:best_combo = g:best_last_combo
-	endfunction
 
 	autocmd TextChangedI * call UpdateCombo()	" Every time text is changed, call combo function
 	autocmd InsertLeave * call SaveCombo()
+	" In case you want to revert your last combo
+	function! Cheated()
+		let g:best_combo = g:best_last_combo
+		let g:combo_counter = g:best_last_combo
+		call writefile([g:combo_counter], g:combo_file)
+	endfunction
+	" This is only needed to avoid backspace cheating.
+	function! Decrease()
+		let g:combo_counter -= 1
+		return "\<BS>"
+	endfunction
+	inoremap <expr> <BS> Decrease()
 endif
