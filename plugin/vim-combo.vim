@@ -32,7 +32,7 @@ else
 		let g:best_combo = readfile(g:combo_file)
 		let g:best_combo = g:best_combo[0]
 	else
-		silent !echo 0 > g:combo_file
+		silent exec '!echo 0 > ' . g:combo_file
 		let g:best_combo = 0
 	endif
 	let g:best_last_combo = g:best_combo		" Used to revert
