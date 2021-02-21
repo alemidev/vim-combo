@@ -1,27 +1,16 @@
 " COMBO Counter
 " Choose combo file depending on extension
-if strlen(expand("%:e")) > 0
-	let g:combo_file = $HOME . '/.vim/.combo/' . expand("%:e") . ".cmb"
-else
-	let g:combo_file = $HOME . '/.vim/.combo/none.cmb'
+
+" Check for a .combo folder, make one if missing
+if !isdirectory($HOME . '/.vim/.combo')
+    silent !mkdir $HOME/.vim/.combo
 endif
-
-" Find best score across all filetypes
-let scores = []
-for f in split(globpath($HOME . '/.vim/.combo/', '*'), '\n')
-	let buf = readfile(f)
-	call insert(scores, buf[0])
-endfor
-let g:best_combo_all = max(scores)
-
-" Checking for ignored extensions
-let ignored = ['cmb']
-let g:disable_combo = 0
-for f in ignored
-	if expand("%:e") == f
-		let g:disable_combo = 1
-	endif
-endfor
+" Get extension, choose combo file
+if strlen(expand("%:e")) > 0 
+    let g:combo_file = $HOME . '/.vim/.combo/' . expand("%:e") . ".cmb"
+else
+    let g:combo_file = $HOME . '/.vim/.combo/none.cmb'
+endif
 
 " If file should be ignored, just set text, else continue with script
 if g:disable_combo
