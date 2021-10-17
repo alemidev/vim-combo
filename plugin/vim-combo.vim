@@ -8,23 +8,31 @@ let g:combo_tracker_already_loaded = 1
 
 " Check for a .combo folder, make one if missing
 if !isdirectory($HOME . '/.vim')
-    silent !mkdir $HOME/.vim
+	silent !mkdir $HOME/.vim
 endif
 if !isdirectory($HOME . '/.vim/.combo')
-    silent !mkdir $HOME/.vim/.combo
+	silent !mkdir $HOME/.vim/.combo
 endif
 
 function ComboFmt()
-	return printf("combo|%d [best|%d]", g:combo, g:best_combo)
+	return printf("combo|%d [best|%d]", g:combo_counter, g:best_combo)
 endfunction
+"
+" Declare variables
+let g:combo_counter = 0		" The actual combo variable
+let g:best_combo = 0		" Where best score for filetype is tracked
+let g:best_last_combo = 0	" Used to revert, when you cheat by accident
+let g:combo_timeout = 1
+let g:combo = ComboFmt()
+let g:last_combo = reltime()	" Set current time as last combo time
 
 " Get extension, choose combo file
 function ReloadComboFile()
 	let g:combo_file_type = &filetype
 	if strlen(g:combo_file_type) > 0 
-	    let g:combo_file = $HOME . '/.vim/.combo/' . g:combo_file_type . ".cmb"
+		let g:combo_file = $HOME . '/.vim/.combo/' . g:combo_file_type . ".cmb"
 	else
-	    let g:combo_file = $HOME . '/.vim/.combo/none.cmb'
+		let g:combo_file = $HOME . '/.vim/.combo/none.cmb'
 	endif
 	
 	" Find best score for current filetype. If none exists, start tracking
@@ -42,14 +50,6 @@ endfunction
 
 autocmd FileType * call ReloadComboFile()
 
-" Declare variables
-let g:combo_counter = 0		" The actual combo variable
-let g:best_combo = 0		" Where best score for filetype is tracked
-let g:best_last_combo = 0	" Used to revert, when you cheat by accident
-let g:combo_timeout = 1
-let g:combo = ComboFmt()
-let g:last_combo = reltime()	" Set current time as last combo time
-
 " Main check function, executed every time the file is changed
 function! UpdateCombo()
 	if reltimefloat(reltime(g:last_combo)) > g:combo_timeout
@@ -61,6 +61,7 @@ function! UpdateCombo()
 	let g:combo = ComboFmt()
 	let g:last_combo = reltime()
 endfunction
+autocmd TextChangedI * call UpdateCombo()	" Every time text is changed, call combo function
 
 " Checks if a new combo has been achieved and saves it to file
 function! SaveCombo()		" Should check inside because it can be called on InsertLeave
@@ -70,8 +71,6 @@ function! SaveCombo()		" Should check inside because it can be called on InsertL
 		let g:best_combo = g:combo_counter
 	endif
 endfunction
-
-autocmd TextChangedI * call UpdateCombo()	" Every time text is changed, call combo function
 autocmd InsertLeave * call SaveCombo()
 
 " In case you want to revert your last combo
