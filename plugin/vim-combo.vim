@@ -25,6 +25,7 @@ let g:best_last_combo = 0	" Used to revert, when you cheat by accident
 let g:combo_timeout = 1
 let g:combo = ComboFmt()
 let g:last_combo = reltime()	" Set current time as last combo time
+let g:combo_file = $HOME . '/.vim/.combo/none.cmb'
 
 " Get extension, choose combo file
 function ReloadComboFile()
