@@ -63,6 +63,7 @@ function! UpdateCombo()
 	let g:last_combo = reltime()
 endfunction
 autocmd TextChangedI * call UpdateCombo()	" Every time text is changed, call combo function
+autocmd TextChangedP * call UpdateCombo()	" Every time text is changed, call combo function
 
 " Checks if a new combo has been achieved and saves it to file
 function! SaveCombo()		" Should check inside because it can be called on InsertLeave
