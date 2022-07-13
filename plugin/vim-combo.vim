@@ -1,5 +1,16 @@
 " COMBO Counter
 
+if has('nvim')
+	lua require('combo')
+	
+	command Cheated lua ComboCheated()
+	command ComboEnable lua ComboEnable()
+	command ComboDisable lua ComboDisable()
+	command ComboToggle lua ComboToggle()
+
+	finish
+endif
+
 " Check if already loaded
 if exists('g:combo_tracker_already_loaded')
 	finish
@@ -17,14 +28,14 @@ endif
 function ComboFmt()
 	return printf("combo|%d [best|%d]", g:combo_counter, g:best_combo)
 endfunction
-"
+
 " Declare variables
-let g:combo_counter = 0		" The actual combo variable
-let g:best_combo = 0		" Where best score for filetype is tracked
-let g:best_last_combo = 0	" Used to revert, when you cheat by accident
+let g:combo_counter = 0      " The actual combo variable
+let g:best_combo = 0         " Where best score for filetype is tracked
+let g:best_last_combo = 0    " Used to revert, when you cheat by accident
 let g:combo_timeout = 1
 let g:combo = ComboFmt()
-let g:last_combo = reltime()	" Set current time as last combo time
+let g:last_combo = reltime() " Set current time as last combo time
 let g:combo_file = $HOME . '/.vim/.combo/none.cmb'
 
 " Get extension, choose combo file
